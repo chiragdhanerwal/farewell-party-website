@@ -39,8 +39,8 @@ export default function useBackgroundMusic({ play, muted }: BackgroundMusicProps
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
     fadeIntervalRef.current = setInterval(() => {
       if (!audioRef.current) return;
-      if (audioRef.current.volume < 0.7) {
-        audioRef.current.volume = Math.min(audioRef.current.volume + 0.02, 0.7);
+      if (audioRef.current.volume < 0.35) {
+        audioRef.current.volume = Math.min(audioRef.current.volume + 0.02, 0.35);
       } else {
         if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       }

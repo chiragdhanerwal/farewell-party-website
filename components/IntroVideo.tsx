@@ -49,7 +49,7 @@ export default function IntroVideo({ onVideoEnd }: IntroVideoProps) {
           <video
             ref={videoRef}
             src="/intro_video.mp4"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
               phase === "playing" ? "opacity-100" : "opacity-0"
             }`}
             onEnded={handleEnded}

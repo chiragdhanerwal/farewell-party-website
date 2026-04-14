@@ -57,7 +57,7 @@ export default function HomePage() {
             </motion.button>
 
             {/* ── HERO SECTION ── */}
-            <section className="relative z-10 w-full flex flex-col items-center pt-0 pb-0 px-4 gap-0">
+            <section className="relative z-10 w-full flex flex-col items-center pt-4 md:pt-0 pb-0 px-4 gap-0">
 
               {/* THE END OF AN ERA — LOGO (BIG, on top) */}
               <motion.div
