@@ -12,28 +12,28 @@ export default function ParticipantCounter({ current, total }: ParticipantCounte
   const percentage = (current / total) * 100;
 
   return (
-    <div className="flex flex-col gap-2 text-right">
+    <div className="flex flex-col items-center gap-3 text-center">
       {/* Count */}
-      <div className="flex items-baseline justify-end gap-2">
+      <div className="flex items-baseline justify-center gap-2">
         <span
-          className="text-4xl md:text-5xl font-bold tracking-widest tabular-nums"
+          className="text-5xl md:text-7xl font-bold tracking-widest tabular-nums"
           style={{ color: "#ff2d2d" }}
         >
           {current}
         </span>
-        <span className="text-xl md:text-2xl text-white/50 tracking-widest font-bold">
+        <span className="text-2xl md:text-3xl text-white/50 tracking-widest font-bold">
           / {total}
         </span>
-        <span className="hidden sm:inline text-sm md:text-base text-white/70 tracking-widest uppercase pl-1">
+        <span className="hidden sm:inline text-base md:text-lg text-white/70 tracking-widest uppercase pl-1">
           PEOPLE IN
         </span>
       </div>
-      <div className="sm:hidden text-sm text-white/70 tracking-widest uppercase text-right">
+      <div className="sm:hidden text-base text-white/70 tracking-widest uppercase text-center">
         PEOPLE IN
       </div>
 
       {/* Progress bar */}
-      <div className="w-full max-w-[260px] ml-auto h-1.5 bg-white/10 rounded-full overflow-hidden">
+      <div className="w-full max-w-[300px] mx-auto h-2 bg-white/10 rounded-full overflow-hidden">
         <motion.div
           className="h-full rounded-full"
           style={{ backgroundColor: "#ff2d2d" }}
@@ -42,14 +42,6 @@ export default function ParticipantCounter({ current, total }: ParticipantCounte
           transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
         />
       </div>
-
-      {/* Subtext */}
-      <p className="text-sm tracking-widest uppercase text-white/40">
-        Spots filling fast
-      </p>
-      <p className="text-sm tracking-widest font-bold" style={{ color: "#ff2d2d" }}>
-        {remaining} spots left
-      </p>
     </div>
   );
 }

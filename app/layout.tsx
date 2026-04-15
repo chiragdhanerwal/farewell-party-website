@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
 import "./globals.css";
+import { MusicProvider } from "@/components/MusicContext";
+import MuteButton from "@/components/MuteButton";
 
 const oswald = Oswald({
   variable: "--font-oswald",
@@ -20,7 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${oswald.variable} antialiased`}>
       <body className="min-h-screen flex flex-col bg-black text-white">
-        {children}
+        <MusicProvider>
+          {/* Mute button is global — visible on every page once music starts */}
+          <MuteButton />
+          {children}
+        </MusicProvider>
       </body>
     </html>
   );
