@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import BackButton from "@/components/BackButton";
 
 const sections = [
@@ -89,12 +89,12 @@ const sections = [
   },
 ];
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: i * 0.08, ease: "easeOut" },
+    transition: { duration: 0.6, delay: i * 0.08, ease: "easeOut" as const },
   }),
 };
 
