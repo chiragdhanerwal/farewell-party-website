@@ -51,21 +51,22 @@ export default function HomePage() {
             {/* Mute button is now rendered globally in layout.tsx */}
 
             {/* ── HERO SECTION ── */}
-            <section className="relative z-10 w-full flex flex-col items-center pt-10 md:pt-8 pb-0 px-4 gap-0">
+            <section className="relative z-10 w-full flex flex-col items-center pt-2 md:pt-2 pb-0 px-4 gap-0">
 
               {/* THE END OF AN ERA — LOGO (BIG, on top) */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="w-full max-w-5xl -mb-[6%] mt-0"
+                className="w-full max-w-5xl -mb-[4%] mt-0"
               >
                 <Image
-                  src="/logo.png"
+                  src="/logo.png?v=2"
                   alt="THE END OF AN ERA"
-                  width={2000}
-                  height={800}
+                  width={1933}
+                  height={347}
                   className="w-full h-auto object-contain"
+                  unoptimized
                   priority
                 />
               </motion.div>
@@ -75,7 +76,7 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6 }}
-                className="w-full max-w-3xl mt-4"
+                className="w-full max-w-3xl mt-0"
               >
                 <Image
                   src="/main center photo.png?v=2"
@@ -137,11 +138,12 @@ export default function HomePage() {
                 <div className="w-full flex items-end justify-between">
                   <div id="dates-display-mobile">
                     <Image
-                      src="/newDates.png"
+                      src="/newDates.png?v=2"
                       alt="Event Dates"
-                      width={400}
-                      height={120}
+                      width={2268}
+                      height={950}
                       className="w-44 h-auto object-contain opacity-90"
+                      unoptimized
                     />
                   </div>
                   <div id="participant-counter-mobile">
@@ -158,11 +160,12 @@ export default function HomePage() {
                 {/* Dates — left */}
                 <div id="dates-display" className="flex-shrink-0">
                   <Image
-                    src="/newDates.png"
+                    src="/newDates.png?v=2"
                     alt="Event Dates"
-                    width={400}
-                    height={120}
+                    width={2268}
+                    height={950}
                     className="w-56 md:w-80 h-auto object-contain opacity-90"
+                    unoptimized
                   />
                 </div>
 
@@ -198,7 +201,7 @@ export default function HomePage() {
             </motion.div>
 
             {/* Bottom spacer so content isn't hidden behind the HUD */}
-            <div className="h-48 sm:h-32 relative z-10" />
+            <div className="h-72 sm:h-56 relative z-10" />
 
             {/* Subtle red glow line at bottom */}
             <div

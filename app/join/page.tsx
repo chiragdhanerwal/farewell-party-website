@@ -49,7 +49,7 @@ interface RazorpayResponse {
   razorpay_signature: string;
 }
 
-const RAZORPAY_KEY_ID = "ps6M4BhTbOlpp1nKTIyzC5yj";
+const RAZORPAY_KEY_ID = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!;
 
 export default function JoinThePartyForm() {
   const [form, setForm] = useState<FormData>({

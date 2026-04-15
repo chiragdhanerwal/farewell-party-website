@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 
 const razorpay = new Razorpay({
-  key_id: "ps6M4BhTbOlpp1nKTIyzC5yj",
-  key_secret: "ps6M4BhTbOlpp1nKTIyzC5yj",
+  key_id: process.env.RAZORPAY_KEY_ID as string,
+  key_secret: process.env.RAZORPAY_KEY_SECRET as string,
 });
 
 export async function POST(request: Request) {
@@ -11,13 +11,21 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email } = body;
 
+    // ✅ validation
+    if (!name || !email) {
+      return NextResponse.json(
+        { success: false, message: "Name and Email required" },
+        { status: 400 }
+      );
+    }
+
     const order = await razorpay.orders.create({
       amount: 200000, // ₹2000 in paise
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
       notes: {
-        customerName: name || "",
-        customerEmail: email || "",
+        customerName: name,
+        customerEmail: email,
       },
     });
 
@@ -27,15 +35,16 @@ export async function POST(request: Request) {
       amount: order.amount,
       currency: order.currency,
     });
-  } catch (error: unknown) {
-    console.error("Razorpay order creation failed — full error:", JSON.stringify(error, null, 2));
-    const errObj = error as Record<string, unknown>;
-    const message =
-      errObj?.error
-        ? JSON.stringify(errObj.error)
-        : error instanceof Error
-        ? error.message
-        : "Order creation failed";
-    return NextResponse.json({ success: false, message, raw: errObj }, { status: 500 });
+
+  } catch (error: any) {
+    console.error("Order creation error:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: error?.error?.description || error.message,
+      },
+      { status: 500 }
+    );
   }
 }
