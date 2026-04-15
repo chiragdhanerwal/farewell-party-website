@@ -4,11 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX } from "lucide-react";
 import IntroVideo from "@/components/IntroVideo";
 import NavBar from "@/components/NavBar";
 import ParticipantCounter from "@/components/ParticipantCounter";
-import useBackgroundMusic from "@/components/useBackgroundMusic";
+import { useMusicContext } from "@/components/MusicContext";
 
 const PARTICIPANT_CURRENT = 137;
 const PARTICIPANT_TOTAL = 200;
@@ -19,17 +18,27 @@ async function handleJoinParty() {
 }
 
 export default function HomePage() {
-  const [introFinished, setIntroFinished] = useState(false);
-  const [muted, setMuted] = useState(false);
-
-  useBackgroundMusic({ play: introFinished, muted });
+  const { started, startMusic } = useMusicContext();
+  // If music already started (user went through intro), skip straight to main content.
+  // On a full page reload the layout remounts → started resets to false → intro shows again.
+  const [introState, setIntroState] = useState<"show" | "done">(
+    started ? "done" : "show"
+  );
 
   return (
     <>
-      <IntroVideo onVideoEnd={() => setIntroFinished(true)} />
+      {/* Only mount intro on a genuine first visit */}
+      {introState === "show" && (
+        <IntroVideo
+          onVideoEnd={() => {
+            setIntroState("done");
+            startMusic();
+          }}
+        />
+      )}
 
       <AnimatePresence>
-        {introFinished && (
+        {introState === "done" && (
           <motion.main
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -39,33 +48,17 @@ export default function HomePage() {
             {/* Dark overlay so text/UI is readable over background image */}
             <div className="fixed inset-0 bg-black/60 pointer-events-none z-0" />
 
-            {/* ── MUTE TOGGLE ── */}
-            <motion.button
-              id="mute-toggle-btn"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5, duration: 0.6 }}
-              onClick={() => setMuted((m) => !m)}
-              aria-label={muted ? "Unmute music" : "Mute music"}
-              className="
-                fixed top-5 right-5 z-50
-                flex items-center justify-center
-                text-white/40 hover:text-[#ff2d2d]
-                transition-colors duration-300
-              "
-            >
-              {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-            </motion.button>
+            {/* Mute button is now rendered globally in layout.tsx */}
 
             {/* ── HERO SECTION ── */}
-            <section className="relative z-10 w-full flex flex-col items-center pt-4 md:pt-0 pb-0 px-4 gap-0">
+            <section className="relative z-10 w-full flex flex-col items-center pt-10 md:pt-8 pb-0 px-4 gap-0">
 
               {/* THE END OF AN ERA — LOGO (BIG, on top) */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="w-full max-w-5xl -mb-[6%] -mt-8"
+                className="w-full max-w-5xl -mb-[6%] mt-0"
               >
                 <Image
                   src="/logo.png"
