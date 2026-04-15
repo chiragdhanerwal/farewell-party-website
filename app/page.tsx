@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import IntroVideo from "@/components/IntroVideo";
@@ -81,7 +82,7 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6 }}
-                className="w-full max-w-3xl"
+                className="w-full max-w-3xl mt-4"
               >
                 <Image
                   src="/main center photo.png?v=2"
@@ -100,7 +101,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.8 }}
-              className="relative z-10 w-full"
+              className="relative z-[50] w-full"
             >
               <NavBar onJoin={handleJoinParty} />
             </motion.div>
@@ -112,33 +113,99 @@ export default function HomePage() {
               transition={{ delay: 1.5, duration: 0.8 }}
               className="
                 fixed bottom-0 left-0 right-0 z-40
-                flex flex-col sm:flex-row items-center sm:items-end justify-between
-                px-6 pb-5 pt-3 gap-4
                 bg-gradient-to-t from-black/90 to-transparent
+                px-4 sm:px-6 pb-4 sm:pb-5 pt-3
               "
             >
-              {/* Dates — bottom left */}
-              <div id="dates-display" className="flex-shrink-0">
-                <Image
-                  src="/dates.png"
-                  alt="Event Dates"
-                  width={400}
-                  height={120}
-                  className="w-56 md:w-80 h-auto object-contain opacity-90"
-                />
+              {/* ── Mobile layout (stacked) ── */}
+              <div className="flex flex-col items-center gap-3 sm:hidden">
+                {/* Join button */}
+                <Link
+                  id="join-party-btn-mobile"
+                  href="/join"
+                  className="
+                    px-8 py-2.5 text-xs tracking-widest uppercase font-bold
+                    border border-[#ff2d2d] text-white
+                    hover:bg-[#ff2d2d] transition-all duration-300
+                    hover:shadow-[0_0_20px_rgba(255,45,45,0.6)]
+                  "
+                >
+                  JOIN THE PARTY
+                </Link>
+
+                {/* Disclaimer */}
+                <p className="text-[10px] text-white/50 tracking-wider text-center leading-relaxed max-w-xs uppercase">
+                  <span className="text-[#ff2d2d] font-bold">Disclaimer:</span>{" "}
+                  This is <span className="text-[#ff2d2d] font-bold">not</span> about lame profits — the agenda is clear i.e.{" "}
+                  <span className="text-white font-bold">CREATE HISTORY.</span>
+                </p>
+
+                {/* Dates + Counter row */}
+                <div className="w-full flex items-end justify-between">
+                  <div id="dates-display-mobile">
+                    <Image
+                      src="/newDates.png"
+                      alt="Event Dates"
+                      width={400}
+                      height={120}
+                      className="w-44 h-auto object-contain opacity-90"
+                    />
+                  </div>
+                  <div id="participant-counter-mobile">
+                    <ParticipantCounter
+                      current={PARTICIPANT_CURRENT}
+                      total={PARTICIPANT_TOTAL}
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Counter — bottom right */}
-              <div id="participant-counter">
-                <ParticipantCounter
-                  current={PARTICIPANT_CURRENT}
-                  total={PARTICIPANT_TOTAL}
-                />
+              {/* ── Desktop / tablet layout (three columns) ── */}
+              <div className="hidden sm:flex items-end justify-between gap-4">
+                {/* Dates — left */}
+                <div id="dates-display" className="flex-shrink-0">
+                  <Image
+                    src="/newDates.png"
+                    alt="Event Dates"
+                    width={400}
+                    height={120}
+                    className="w-56 md:w-80 h-auto object-contain opacity-90"
+                  />
+                </div>
+
+                {/* Center — Join button + Disclaimer */}
+                <div className="flex flex-col flex-1 items-center justify-center px-4 mb-6 gap-4">
+                  <Link
+                    id="join-party-btn"
+                    href="/join"
+                    className="
+                      px-8 py-3 text-xs md:text-sm tracking-widest uppercase font-bold
+                      border border-[#ff2d2d] text-white
+                      hover:bg-[#ff2d2d] transition-all duration-300
+                      hover:shadow-[0_0_20px_rgba(255,45,45,0.6)]
+                    "
+                  >
+                    JOIN THE PARTY
+                  </Link>
+                  <p className="text-sm md:text-lg text-white/60 tracking-wider text-center leading-relaxed max-w-xl uppercase">
+                    <span className="text-[#ff2d2d] font-bold">Disclaimer:</span>{" "}
+                    This is <span className="text-[#ff2d2d] font-bold">not</span> something done with the agenda of making some lame profits — the agenda is clear i.e.{" "}
+                    <span className="text-white font-bold">CREATE HISTORY.</span>
+                  </p>
+                </div>
+
+                {/* Counter — right */}
+                <div id="participant-counter" className="flex-shrink-0">
+                  <ParticipantCounter
+                    current={PARTICIPANT_CURRENT}
+                    total={PARTICIPANT_TOTAL}
+                  />
+                </div>
               </div>
             </motion.div>
 
             {/* Bottom spacer so content isn't hidden behind the HUD */}
-            <div className="h-32 relative z-10" />
+            <div className="h-48 sm:h-32 relative z-10" />
 
             {/* Subtle red glow line at bottom */}
             <div
