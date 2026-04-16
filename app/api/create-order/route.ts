@@ -9,7 +9,7 @@ const razorpay = new Razorpay({
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email } = body;
+    const { name, email, couponCode } = body;
 
     // ✅ validation
     if (!name || !email) {
@@ -19,8 +19,19 @@ export async function POST(request: Request) {
       );
     }
 
+    let finalAmount = 2000;
+    const code = couponCode?.trim();
+
+    if (code === "Rani@123") {
+      finalAmount = 2000 * 0.01; // 99% off (pays 1%)
+    } else if (code === "sakeofbtech") {
+      finalAmount = 2000 * 0.50; // 50% off
+    } else if (code === "forsakeoffriends") {
+      finalAmount = 2000 * 0.90; // 10% off (pays 90%)
+    }
+
     const order = await razorpay.orders.create({
-      amount: 200000, // ₹2000 in paise
+      amount: Math.round(finalAmount * 100), // in paise
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
       notes: {

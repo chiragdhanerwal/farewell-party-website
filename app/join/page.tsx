@@ -18,6 +18,7 @@ type FormData = {
   placementStatus: string;
   relationshipStatus: string;
   expectations: string;
+  couponCode?: string;
 };
 
 declare global {
@@ -63,6 +64,7 @@ export default function JoinThePartyForm() {
     placementStatus: "",
     relationshipStatus: "",
     expectations: "",
+    couponCode: "",
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -72,6 +74,19 @@ export default function JoinThePartyForm() {
 
   const update = (field: keyof FormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const getCalculatedPrice = () => {
+    let price = 2000;
+    const code = form.couponCode?.trim();
+    if (code === "Rani@123") {
+      price = 20; // 99% off
+    } else if (code === "sakeofbtech") {
+      price = 1000; // 50% off
+    } else if (code === "forsakeoffriends") {
+      price = 1800; // 10% off
+    }
+    return price;
   };
 
   // Validate required fields before proceeding to payment
@@ -103,6 +118,7 @@ export default function JoinThePartyForm() {
         body: JSON.stringify({
           name: form.name,
           email: form.nsutEmail,
+          couponCode: form.couponCode,
         }),
       });
 
@@ -418,6 +434,18 @@ export default function JoinThePartyForm() {
             />
           </FormField>
 
+          {/* Coupon Code (optional) */}
+          <FormField label="Coupon Code" optional>
+            <input
+              id="field-coupon"
+              type="text"
+              value={form.couponCode || ""}
+              onChange={(e) => update("couponCode", e.target.value)}
+              placeholder="Enter discount code"
+              className={inputClass}
+            />
+          </FormField>
+
           {/* Error */}
           {error && (
             <p className="text-[#ff2d2d] text-xs tracking-wider text-center">{error}</p>
@@ -431,7 +459,16 @@ export default function JoinThePartyForm() {
             />
             <p className="text-white/40 text-xs tracking-[0.3em] uppercase flex items-center gap-1">
               Entry Fee: <IndianRupee size={12} className="text-[#ff2d2d]" />
-              <span className="text-white font-bold text-sm">2,000</span>
+              <span className="text-white font-bold text-sm">
+                {getCalculatedPrice() === 2000 ? (
+                  "2,000"
+                ) : (
+                  <>
+                    <span className="line-through text-white/30 mr-2 text-xs">2,000</span>
+                    {getCalculatedPrice().toLocaleString("en-IN")}
+                  </>
+                )}
+              </span>
             </p>
             <div
               className="w-12 h-px"
@@ -461,7 +498,7 @@ export default function JoinThePartyForm() {
                 </>
               ) : (
                 <>
-                  Pay ₹2,000 &amp; Join
+                  Pay ₹{getCalculatedPrice().toLocaleString("en-IN")} &amp; Join
                 </>
               )}
             </button>

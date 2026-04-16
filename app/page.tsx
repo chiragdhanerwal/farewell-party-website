@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +9,6 @@ import NavBar from "@/components/NavBar";
 import ParticipantCounter from "@/components/ParticipantCounter";
 import { useMusicContext } from "@/components/MusicContext";
 
-const PARTICIPANT_CURRENT = 137;
 const PARTICIPANT_TOTAL = 200;
 
 async function handleJoinParty() {
@@ -19,6 +18,18 @@ async function handleJoinParty() {
 
 export default function HomePage() {
   const { started, startMusic } = useMusicContext();
+  const [participantCount, setParticipantCount] = useState<number>(12);
+
+  useEffect(() => {
+    fetch("/api/participant-count")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && typeof data.count === "number") {
+          setParticipantCount(data.count);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch count:", err));
+  }, []);
   // If music already started (user went through intro), skip straight to main content.
   // On a full page reload the layout remounts → started resets to false → intro shows again.
   const [introState, setIntroState] = useState<"show" | "done">(
@@ -148,7 +159,7 @@ export default function HomePage() {
                   </div>
                   <div id="participant-counter-mobile">
                     <ParticipantCounter
-                      current={PARTICIPANT_CURRENT}
+                      current={participantCount}
                       total={PARTICIPANT_TOTAL}
                     />
                   </div>
@@ -193,7 +204,7 @@ export default function HomePage() {
                 {/* Counter — right */}
                 <div id="participant-counter" className="flex-shrink-0">
                   <ParticipantCounter
-                    current={PARTICIPANT_CURRENT}
+                    current={participantCount}
                     total={PARTICIPANT_TOTAL}
                   />
                 </div>
