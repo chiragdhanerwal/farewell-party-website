@@ -28,6 +28,8 @@ export async function POST(request: Request) {
       finalAmount = 2000 * 0.50; // 50% off
     } else if (code === "forsakeoffriends") {
       finalAmount = 2000 * 0.90; // 10% off (pays 90%)
+    } else if (code === "FAREWELL20") {
+      finalAmount = 2000 * 0.80; // 20% off (pays 80%)
     }
 
     const order = await razorpay.orders.create({
