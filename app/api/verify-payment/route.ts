@@ -84,7 +84,7 @@ export async function POST(request: Request) {
 
       // 3. Increment the participant count
       try {
-        let count = 12;
+        let count = 16;
         if (fs.existsSync(DATA_FILE)) {
           const fileData = fs.readFileSync(DATA_FILE, "utf-8");
           const parsed = JSON.parse(fileData);

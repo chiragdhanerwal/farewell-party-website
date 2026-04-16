@@ -6,7 +6,7 @@ const DATA_FILE = path.join(process.cwd(), "data", "participant-count.json");
 
 export async function GET() {
   try {
-    let count = 12; // default
+    let count = 16; // default
     if (fs.existsSync(DATA_FILE)) {
       const fileData = fs.readFileSync(DATA_FILE, "utf-8");
       try {
@@ -22,6 +22,6 @@ export async function GET() {
     return NextResponse.json({ success: true, count });
   } catch (error) {
     console.error("Error reading participant count:", error);
-    return NextResponse.json({ success: false, count: 12 }, { status: 500 });
+    return NextResponse.json({ success: false, count: 16 }, { status: 500 });
   }
 }
