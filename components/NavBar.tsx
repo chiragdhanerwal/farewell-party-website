@@ -12,14 +12,19 @@ const menuItems = [
   { label: "Desserts", href: "/desserts" },
 ];
 
+const detailsItems = [
+  { label: "About The Party", href: "/about-party" },
+  { label: "Know Your Hosts", href: "/hosts" },
+];
+
 const navLinksBefore = [
   { label: "AGENDA", href: "/agenda" },
 ];
 
 const navLinksAfter = [
-  { label: "EVENT FLOW", href: "#event-flow" },
+  { label: "EVENT FLOW", href: "/event-flow" },
   { label: "DETAILS", href: "#details" },
-  { label: "QUERIES", href: "#queries" },
+  { label: "QUERIES", href: "/queries" },
 ];
 
 interface NavBarProps {
@@ -28,12 +33,17 @@ interface NavBarProps {
 
 export default function NavBar({ onJoin }: NavBarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setMenuOpen(false);
+      }
+      if (detailsRef.current && !detailsRef.current.contains(e.target as Node)) {
+        setDetailsOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -137,19 +147,83 @@ export default function NavBar({ onJoin }: NavBarProps) {
       </div>
 
       {/* Links after menu (EVENT FLOW, DETAILS, QUERIES) */}
-      {navLinksAfter.map((link) => (
-        <a
-          key={link.label}
-          id={`nav-link-${link.label.toLowerCase().replace(/\s/g, "-")}`}
-          href={link.href}
-          className="
-            px-4 py-2.5 text-xs md:text-sm tracking-widest uppercase font-bold
-            text-white/50 hover:text-white transition-colors duration-300
-          "
-        >
-          {link.label}
-        </a>
-      ))}
+      {navLinksAfter.map((link) => {
+        if (link.label === "DETAILS") {
+          return (
+            <div key={link.label} ref={detailsRef} className="relative">
+              <button
+                onClick={() => setDetailsOpen((prev) => !prev)}
+                className="
+                  flex items-center gap-1.5 px-4 py-2.5 text-xs md:text-sm tracking-widest uppercase font-bold
+                  text-white/50 hover:text-white transition-all duration-300
+                "
+              >
+                {link.label}
+                <motion.div animate={{ rotate: detailsOpen ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                  <ChevronDown size={14} />
+                </motion.div>
+              </button>
+
+              <AnimatePresence>
+                {detailsOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scaleY: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                    exit={{ opacity: 0, y: -8, scaleY: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="
+                      absolute left-1/2 -translate-x-1/2 top-full mt-2
+                      w-48 bg-black/95 border border-white/10 backdrop-blur-sm
+                      z-50 overflow-hidden
+                    "
+                  >
+                    {detailsItems.map((item, i) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={() => setDetailsOpen(false)}
+                        className="
+                          block w-full px-5 py-3 text-left text-xs tracking-widest uppercase
+                          text-white/60 hover:text-white hover:bg-[#ff2d2d]/10 transition-colors duration-200
+                          border-b border-white/5 last:border-0
+                        "
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        }
+
+        return link.href.startsWith("/") ? (
+          <Link
+            key={link.label}
+            id={`nav-link-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+            href={link.href}
+            className="
+              px-4 py-2.5 text-xs md:text-sm tracking-widest uppercase font-bold
+              text-white/50 hover:text-white transition-colors duration-300
+            "
+          >
+            {link.label}
+          </Link>
+        ) : (
+          <a
+            key={link.label}
+            id={`nav-link-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+            href={link.href}
+            className="
+              px-4 py-2.5 text-xs md:text-sm tracking-widest uppercase font-bold
+              text-white/50 hover:text-white transition-colors duration-300
+            "
+          >
+            {link.label}
+          </a>
+        );
+      })}
     </nav>
   );
 }

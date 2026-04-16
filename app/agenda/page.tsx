@@ -6,86 +6,60 @@ import BackButton from "@/components/BackButton";
 const sections = [
   {
     number: "1",
-    title: "PURPOSE",
+    title: "THE INTENT",
     paragraphs: [
-      "To move beyond the idea of a conventional farewell and create an experience that captures the intensity, unpredictability, and spirit of the years gone by.",
-      "This is not about hosting an event.\nIt is about creating a moment that people carry forward.",
+      "This is not just a farewell. We aim to throw the most INCREDIBLE farewell any engineering batch has ever seen in the history.",
     ],
   },
   {
     number: "2",
-    title: "FORMAT",
+    title: "THE PLAN",
     paragraphs: [
-      "An overnight gathering designed to break away from structure and formality.",
-      "From evening to sunrise, the timeline is intentionally fluid—allowing the night to unfold organically rather than follow a rigid sequence. The environment, set in a farmhouse setting, is chosen to encourage openness, energy, and participation.",
+      "One night. Where there is nothing holding you back from sunset to sunrise. The last and the most epic point blank.",
     ],
   },
   {
     number: "3",
-    title: "EXPERIENCE DESIGN",
+    title: "THE EXPERIENCE",
     paragraphs: [
-      "The elements are familiar—music, a pool, food, drinks, activities.",
-      "But the intention is not in listing features; it lies in how they come together.",
-      "This agenda prioritizes:",
+      "Forget the basics you already know there's music, pool, drinks, food n all of that. But what you don't know is that's it's going to be the most memorable party of your bachlor life before u become a permanent corporate slave.",
     ],
-    bullets: [
-      "High-energy engagement over passive attendance",
-      "Shared experiences over individual presence",
-      "Spontaneity over scripting",
-    ],
-    footer: "Because what defines a night like this is never what's planned, but what happens in between.",
   },
   {
     number: "4",
-    title: "PARTICIPATION PRINCIPLE",
+    title: "THE SELECTION",
     paragraphs: [
-      "This initiative operates on a simple condition:\nthe energy of the people defines the outcome.",
-      "It is not designed for passive involvement.",
-      "Those who choose to be part of it are expected to contribute not just financially, but emotionally—to engage, to participate, and to embrace the moment fully.",
+      "This is not open for everyone. This belongs to the Batch of 2026 who brings the energy and isn't just another batch of anus-fuckin'-UT.",
     ],
   },
   {
     number: "5",
-    title: "SCALE & FEASIBILITY",
+    title: "THE NUMBERS",
     paragraphs: [
-      "For the experience to retain its intended scale and impact, a critical mass is essential.",
-      "A minimum participation threshold ensures:",
+      "It's the difference between average and unforgettable. When the right number of people show up with the right intent, at the right place.",
     ],
-    bullets: [
-      "Quality of execution",
-      "Balance of cost and experience",
-      "The atmosphere required to make the night what it is meant to be",
-    ],
-    footer: "Failing this, the plan does not dilute—it withdraws.",
   },
   {
     number: "6",
-    title: "ECONOMIC STRUCTURE",
+    title: "THE PRICE",
     paragraphs: [
-      "The contribution model is straightforward.",
-      "It is not profit-driven.\nIt is quality-driven.",
-      "Every aspect—from venue to resources—is aligned with delivering a premium, uncompromised experience rather than a scaled-down alternative.",
+      "The entry is simple, you don't pay to attend but to be part of something that refuses to be mediocre. This isn't about affordability, it's about whether you value the experience enough to step in without hesitation.",
     ],
   },
   {
     number: "7",
-    title: "OUTCOME",
+    title: "THE OUTCOME",
     paragraphs: [
-      "The objective is not to host a successful event.",
-      "The objective is to set a reference point.",
-      "To create something that future batches look back on—not as a benchmark to match, but as a moment that redefined expectations.",
+      "If this happens the way it's meant to, it won't just be remembered it will be referenced. Not copied, not repeated, but pointed at as the moment where the standard changed.",
     ],
   },
   {
     number: "8",
-    title: "CONCLUSION",
+    title: "THE DECISION",
     paragraphs: [
-      "This agenda is not about a party.",
-      "It is about how a chapter ends.",
-      "Whether it concludes quietly, like every other year…\nor stands out as something that people remember—not for what it was, but for how it felt.",
-      "The decision, ultimately, is collective.",
-      "Because moments like these don't happen by default.\nThey happen when people decide they should.",
+      "Right now, it's just an idea. In a few days, it either becomes something real or it disappears like every other plan that never had the people to carry it. There's no middle ground here.",
     ],
+    footer: "EITHER BIGGEST OR NOTHING AT ALL.",
   },
 ];
 
@@ -140,28 +114,8 @@ export default function AgendaPage() {
           />
         </motion.div>
 
-        {/* ── Intro paragraphs ── */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          className="space-y-6 mb-16"
-        >
-          {[
-            "There comes a point in every college journey where the noise fades—not because it's over, but because something bigger is about to take its place.",
-            "The farewell.",
-            "Traditionally, it's been treated as a formality. A scheduled event, a symbolic goodbye, a neatly packaged ending. But endings like these were never meant to be ordinary—especially not for a batch that has spent years redefining what \"normal\" even looks like.",
-            <>This agenda begins with a simple premise:{" "}<br /><span className="text-white font-bold italic">if this is the end, it should feel like one.</span></>,
-          ].map((text, i) => (
-            <motion.p
-              key={i}
-              custom={i}
-              variants={fadeUp}
-              className="text-white/50 text-base md:text-lg leading-relaxed tracking-wide"
-            >
-              {text}
-            </motion.p>
-          ))}
-        </motion.div>
+        {/* ── Intro paragraphs removed as per request ── */}
+        <div className="mb-16" />
 
         {/* ── Numbered sections ── */}
         {sections.map((section, idx) => (
