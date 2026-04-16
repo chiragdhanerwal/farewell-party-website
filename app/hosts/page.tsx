@@ -102,7 +102,7 @@ export default function HostsPage() {
                 
                 <div className="border-l-0 md:border-l border-white/10 pl-0 md:pl-10">
                   <p className="text-white/60 text-base md:text-lg leading-relaxed tracking-wide italic">
-                    "{host.bio}"
+                    &quot;{host.bio}&quot;
                   </p>
                 </div>
               </div>

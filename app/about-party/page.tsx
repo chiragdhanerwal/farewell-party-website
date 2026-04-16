@@ -41,7 +41,7 @@ export default function AboutPartyPage() {
 
         <div className="max-w-3xl mx-auto text-center mb-16 space-y-6">
           <p className="text-white/60 text-base md:text-lg leading-relaxed tracking-wide">
-            Welcome to the battleground. This isn't your average cramped club or dingy basement. We've secured a massive private farmhouse that sets the perfect tone for an unforgettable night.
+            Welcome to the battleground. This isn&apos;t your average cramped club or dingy basement. We&apos;ve secured a massive private farmhouse that sets the perfect tone for an unforgettable night.
           </p>
           <p className="text-white/60 text-base md:text-lg leading-relaxed tracking-wide">
             Sprawling lawns, a stunning swimming pool for the Liquid Rhythm, perfectly tuned acoustics for the DJ set, and enough space to get lost in the chaos. Take a look at where history will be made.

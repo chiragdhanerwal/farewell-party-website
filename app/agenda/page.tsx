@@ -3,7 +3,15 @@
 import { motion, type Variants } from "framer-motion";
 import BackButton from "@/components/BackButton";
 
-const sections = [
+type SectionType = {
+  number: string;
+  title: string;
+  paragraphs: string[];
+  bullets?: string[];
+  footer?: string;
+};
+
+const sections: SectionType[] = [
   {
     number: "1",
     title: "THE INTENT",

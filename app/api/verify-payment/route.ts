@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       { status: 400 }
     );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json(
       { success: false, message: error.message },

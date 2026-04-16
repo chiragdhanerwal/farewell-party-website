@@ -67,7 +67,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const savedMuted = localStorage.getItem("musicMuted") === "true";
-    setMuted(savedMuted);
+    setTimeout(() => setMuted(savedMuted), 0);
 
     const audio = new Audio("/music.mp3");
     audio.loop = true;
