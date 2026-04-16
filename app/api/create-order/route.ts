@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       finalAmount = 2000 * 0.50; // 50% off
     } else if (code === "forsakeoffriends") {
       finalAmount = 2000 * 0.90; // 10% off (pays 90%)
-    } else if (code === "FAREWELL20") {
+    } else if (code === "FIRST50") {
       finalAmount = 2000 * 0.80; // 20% off (pays 80%)
     }
 
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       currency: order.currency,
     });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Order creation error:", error);
 
