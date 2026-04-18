@@ -88,9 +88,8 @@ export default function NavBar({ onJoin }: NavBarProps) {
           id="menu-btn"
           onClick={() => setMenuOpen((prev) => !prev)}
           className="
-            flex items-center gap-1.5 px-6 py-2.5 text-xs md:text-sm tracking-widest uppercase font-bold
-            border border-white/30 text-white/80
-            hover:border-white hover:text-white transition-all duration-300
+            flex items-center gap-1.5 px-4 py-2.5 text-xs md:text-sm tracking-widest uppercase font-bold
+            text-white/50 hover:text-white transition-all duration-300
           "
         >
           MENU
